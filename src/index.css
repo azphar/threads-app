@@ -265,3 +265,77 @@ body {
     display: none;
   }
 }
+
+/* ========= Dark mode overrides ========= */
+
+body.dark {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+body.dark .nav {
+  background: #020617;
+  border-bottom-color: #1f2937;
+}
+
+body.dark .nav__logo {
+  color: #a5b4fc;
+}
+
+body.dark .nav__user {
+  color: #e5e7eb;
+}
+
+body.dark .nav__link {
+  color: #a5b4fc;
+}
+
+body.dark .home__title {
+  color: #e5e7eb;
+}
+
+body.dark .thread-form,
+body.dark .thread-card,
+body.dark .auth {
+  background: #020617;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55);
+  border: 1px solid #111827;
+}
+
+body.dark .thread-form__input,
+body.dark .auth__input {
+  background: #020617;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+body.dark .thread-form__input:focus,
+body.dark .auth__input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px #4f46e5;
+}
+
+body.dark .thread-card__time {
+  color: #9ca3af;
+}
+
+body.dark .loader {
+  color: #9ca3af;
+}
+
+.nav__theme-toggle {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.8rem;
+  background: #f9fafb;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+body.dark .nav__theme-toggle {
+  background: #020617;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
