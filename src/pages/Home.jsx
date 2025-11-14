@@ -13,11 +13,13 @@ import { db } from "../firebase/init.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import ThreadForm from "../components/ThreadForm.jsx";
 import ThreadCard from "../components/ThreadCard.jsx";
+import SkeletonThreadCard from "../components/SkeletonThreadCard.jsx";
 
 function Home() {
   const { user } = useAuth();
   const [threads, setThreads] = useState([]);
   const [posting, setPosting] = useState(false);
+  const [loadingThreads, setLoadingThreads] = useState(true);
 
   useEffect(() => {
     const threadsQuery = query(
@@ -31,6 +33,7 @@ function Home() {
         ...snapshotDoc.data(),
       }));
       setThreads(list);
+      setLoadingThreads(false);
     });
 
     return () => unsubscribe();
@@ -48,6 +51,7 @@ function Home() {
         authorId: user.uid,
         authorEmail: user.email,
         createdAt: serverTimestamp(),
+        likes: [],
       });
     } catch (error) {
       console.error("Error creating thread:", error);
@@ -66,7 +70,6 @@ function Home() {
       return;
     }
 
-    // Only allow deleting your own threads
     if (thread.authorId !== user.uid) {
       alert("You can only delete your own threads.");
       return;
@@ -88,20 +91,30 @@ function Home() {
     <main className="home">
       <h1 className="home__title">Threads Feed</h1>
       <ThreadForm onSubmit={handleCreateThread} loading={posting} />
+
       <section className="home__threads">
-        {threads.map((thread) => (
-          <ThreadCard
-            key={thread.id}
-            thread={thread}
-            canDelete={user && thread.authorId === user.uid}
-            onDelete={handleDeleteThread}
-          />
-        ))}
+        {loadingThreads ? (
+          <>
+            <SkeletonThreadCard />
+            <SkeletonThreadCard />
+            <SkeletonThreadCard />
+          </>
+        ) : (
+          threads.map((thread) => (
+            <ThreadCard
+              key={thread.id}
+              thread={thread}
+              canDelete={user && thread.authorId === user.uid}
+              onDelete={handleDeleteThread}
+            />
+          ))
+        )}
       </section>
     </main>
   );
 }
 
 export default Home;
+
 
 

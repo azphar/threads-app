@@ -21,17 +21,21 @@ function Nav({ darkMode, onToggleTheme }) {
         <span className="nav__logo">threads-app</span>
       </div>
       <div className="nav__right">
-        <button
-          type="button"
-          className="nav__theme-toggle"
-          onClick={onToggleTheme}
-        >
-          {darkMode ? "Light" : "Dark"}
-        </button>
+        {/* Dark mode toggle switch */}
+        <div className="theme-toggle" onClick={onToggleTheme}>
+          <div className={`toggle-track ${darkMode ? "active" : ""}`}>
+            <div className="toggle-thumb"></div>
+          </div>
+        </div>
+
         {user ? (
           <>
             <span className="nav__user">{user.email}</span>
-            <button className="nav__btn" onClick={handleLogout} type="button">
+            <button
+              className="nav__btn"
+              onClick={handleLogout}
+              type="button"
+            >
               Logout
             </button>
           </>
@@ -51,4 +55,5 @@ function Nav({ darkMode, onToggleTheme }) {
 }
 
 export default Nav;
+
 
